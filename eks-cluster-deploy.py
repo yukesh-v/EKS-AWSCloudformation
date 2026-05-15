@@ -20,7 +20,7 @@ def deploy_cluster(stack_name, region, subnet_ids, vpc_id, cluster_version, secu
             Parameters=[
                 {'ParameterKey': 'ClusterName', 'ParameterValue': stack_name},
                 {'ParameterKey': 'VpcId', 'ParameterValue': vpc_id},
-                {'ParameterKey': 'SubnetIds', 'ParameterValue': ','.join(subnet_ids)},
+                {'ParameterKey': 'SubnetIds', 'ParameterValue': subnet_ids},
                 {'ParameterKey': 'ClusterVersion', 'ParameterValue': cluster_version},
                 {'ParameterKey': 'SecurityGroup', 'ParameterValue': security_group}
             ],
