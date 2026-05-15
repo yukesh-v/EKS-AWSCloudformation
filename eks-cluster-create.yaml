@@ -20,7 +20,8 @@ Parameters:
   
   ClusterVersion:
     Type: String
-    Description: Enter the EKS Cluster version 
+    Description: Enter the EKS Cluster version
+     
 Resources:
   EKSCluster:
     Type: AWS::EKS::Cluster
