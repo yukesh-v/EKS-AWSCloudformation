@@ -1,0 +1,41 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+
+Parameters:
+  ClusterName:
+    Type: String
+    Description: Enter the name of your existing EKS Cluster
+
+  SubnetIds:
+    Type: CommaDelimitedList
+    Description: Enter the subnet IDs 
+    
+  InstanceTypes:
+    Type: string
+    Description: Enter the instance types 
+
+Resources:
+  EKSNodeGroup:
+  Type: AWS::EKS::Nodegroup
+  Properties:
+    ClusterName: !Ref ClusterName
+    NodegroupName: !sub '${ClusterName}-nodegroup'
+    NodeRole: arn:aws:iam::949829288387:role/EKS-WorkerNode-Role
+    NodeGroup:
+      ScalingConfig:
+        DesiredSize: 1
+        MaxSize: 3
+        MinSize: 1
+        DiskSize: 20
+        InstanceTypes:
+          - !Ref InstanceTypes
+        subnets:
+          - !Select [0, !Ref SubnetIds]
+          - !Select [1, !Ref SubnetIds]
+    Tags:
+      - Key: Name
+        Value: !Ref ClusterName
+Outputs:
+  NodeGroupName:
+    Description: The name of the EKS node group
+    Value: !Ref EKSNodeGroup

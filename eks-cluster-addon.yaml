@@ -1,0 +1,46 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+
+Parameters:
+  ClusterName:
+    Type: String
+    Description: Enter the name of your existing EKS Cluster
+
+Resources:
+  VPC_CNIAddon:
+    Type: AWS::EKS::Addon
+    Properties:
+      AddonName: vpc-cni
+      ClusterName: !Ref ClusterName
+      Version: "v1.21.1-eksbuild.1"
+
+  EBSAddon:
+    Type: AWS::EKS::Addon
+    Properties:
+      AddonName: aws ebs-csi-driver
+      ClusterName: !Ref ClusterName
+      Version: "V1.20.0-eksbuild-1"
+
+  KubeProxyAddon:
+    Type: AWS::EKS::Addon
+    Properties:
+      AddonName: kube-proxy
+      ClusterName: !Ref ClusterName
+      Version: "v1.35.3-eksbuild.2"
+
+  CoreDNSAddon:
+    Type: AWS::EKS::Addon
+    Properties:
+      AddonName: coredns
+      ClusterName: !Ref ClusterName
+      Version: "v1.13.2-eksbuild.4"
+
+  EKSPodIdentityAgentAddon:
+    Type: AWS::EKS::Addon
+    Properties:
+      AddonName: EKS Pod Identity Agent
+      ClusterName: !Ref ClusterName
+      Version: "v1.3.10-eksbuild.3"
+
+Outputs:
+  

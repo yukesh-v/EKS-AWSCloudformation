@@ -1,0 +1,38 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+  EKS Cluster cretaion
+Parameters:
+  ClusterName:
+    Type: String
+    Description: Enter the name of your existing EKS Cluster
+
+  VpcId:
+    Type: String
+    Description: Enter the VPC ID
+
+  SubnetIds:
+    Type: CommaDelimitedList
+    Description: Enter the Subnet IDs (comma separated)
+  
+  ClusterVersion:
+    Type: String
+    Description: Enter the EKS Cluster version 
+Resources:
+  EKSCluster:
+    Type: AWS::EKS::Cluster
+    Properties:
+      Name: !Ref ClusterName
+      Version: !Ref ClusterVersion
+      roleArn: arn:aws:iam::949829288387:role/AmazonEKSClusterRole
+      ResourceVpcConfig:
+        VpcId: !Ref VpcId
+        Subnets:
+          - !Select [0, !Ref SubnetIds]
+          - !Select [1, !Ref SubnetIds]
+        SecurityGroupIds: 
+          
+
+Outputs:
+  ClusterName:
+    Description: The name of the EKS cluster
+    Value: !Ref EKSCluster
