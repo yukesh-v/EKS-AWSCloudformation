@@ -28,7 +28,7 @@ Resources:
     Properties:
       Name: !Ref ClusterName
       Version: !Ref ClusterVersion
-      roleArn: arn:aws:iam::949829288387:role/AmazonEKSClusterRole
+      RoleArn: arn:aws:iam::949829288387:role/AmazonEKSClusterRole
       ResourceVpcConfig:
         VpcId: !Ref VpcId
         Subnets:
