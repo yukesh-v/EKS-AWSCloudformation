@@ -2,7 +2,7 @@ import boto3
 import time
 import argparse
 
-def deploy_nodegroup(stack_name, region, subnet_ids, instance_types):
+def deploy_nodegroup(stack_name, cluster_name, region, subnet_ids, instance_types):
 
     cfn = boto3.client('cloudformation', region_name=region)
 
@@ -10,7 +10,7 @@ def deploy_nodegroup(stack_name, region, subnet_ids, instance_types):
     with open('eks-nodegroup-creation.yaml', 'r') as f:
         template_body = f.read()
     
-    stack_name = stack_name
+    stack_name = f"${stack_name}-nodegroup"
 
     print(f"Starting deployment for node group {stack_name}...")
 
@@ -19,8 +19,8 @@ def deploy_nodegroup(stack_name, region, subnet_ids, instance_types):
             StackName=stack_name,
             TemplateBody=template_body,
             Parameters=[
-                {'ParameterKey': 'ClusterName', 'ParameterValue': stack_name},
-                {'ParameterKey': 'SubnetIds', 'ParameterValue': ','.join(subnet_ids)},
+                {'ParameterKey': 'ClusterName', 'ParameterValue': cluster_name},
+                {'ParameterKey': 'SubnetIds', 'ParameterValue': subnet_ids},
                 {'ParameterKey': 'InstanceTypes', 'ParameterValue': instance_types}
             ],
             Capabilities=['CAPABILITY_IAM', 'CAPABILITY_NAMED_IAM']
@@ -28,10 +28,19 @@ def deploy_nodegroup(stack_name, region, subnet_ids, instance_types):
         
         print("Stack creation initiated. ID:", response['StackId'])
 
-        waiter = cfn.get_waiter('stack_create_complete')
-        print("Waiting for EKS node group to provision...")
-        waiter.wait(StackName=stack_name)
-        print("Node Group Complete!")
+        while True:
+            stack = cfn.describe_stacks(StackName=stack_name)['Stacks'][0]
+            status = stack['StackStatus']
+            
+            if status == 'CREATE_COMPLETE':
+                print("\nNodeGroup is Created !")
+                break
+            elif 'FAILED' in status or 'ROLLBACK' in status:
+                print(f"\nNodeGroup Failed with status: {status}")
+                break
+            else:
+                print("NodeGroup is being created...", end="\r", flush=True)
+                time.sleep(30)
 
     except Exception as e:
         print(f"Error: {str(e)}")
@@ -40,6 +49,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--stack-name', required=True)
+    parser.add_argument('--cluster_name', required=True)
     parser.add_argument('--region', required=True)
     parser.add_argument('--subnet-ids', required=True)
     parser.add_argument('--instance_types', required=True)
@@ -47,6 +57,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     deploy_nodegroup(
         stack_name=args.stack_name,
+        cluster_name=args.cluster_name,
         region=args.region,
         subnet_ids=args.subnet_ids,
         instance_types=args.instance_types

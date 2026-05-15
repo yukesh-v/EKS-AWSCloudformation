@@ -29,11 +29,19 @@ def deploy_cluster(stack_name, region, subnet_ids, vpc_id, cluster_version, secu
         
         print("Stack creation initiated. ID:", response['StackId'])
         
-        # Wait for completion (EKS takes ~15-20 minutes)
-        waiter = cfn.get_waiter('stack_create_complete')
-        print("Waiting for EKS cluster and nodes to provision...")
-        waiter.wait(StackName=stack_name)
-        print("Deployment Complete!")
+        while True:
+            stack = cfn.describe_stacks(StackName=stack_name)['Stacks'][0]
+            status = stack['StackStatus']
+            
+            if status == 'CREATE_COMPLETE':
+                print("\nCluster is Created Complete!")
+                break
+            elif 'FAILED' in status or 'ROLLBACK' in status:
+                print(f"\nDeployment Failed with status: {status}")
+                break
+            else:
+                print("Cluster is being created...", end="\r", flush=True)
+                time.sleep(30)
 
     except Exception as e:
         print(f"Error: {str(e)}")

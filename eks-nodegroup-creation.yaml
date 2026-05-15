@@ -29,12 +29,8 @@ Resources:
         DiskSize: 20
         InstanceTypes:
           - !Ref InstanceTypes
-        subnets:
-          - !Select [0, !Ref SubnetIds]
-          - !Select [1, !Ref SubnetIds]
-    Tags:
-      - Key: Name
-        Value: !Ref ClusterName
+        subnetIds: !Split [",", !Ref SubnetIds]]
+
 Outputs:
   NodeGroupName:
     Description: The name of the EKS node group
