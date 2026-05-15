@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: |
+Description: EKS Addons Deployment
 
 Parameters:
   ClusterName:
@@ -7,43 +7,38 @@ Parameters:
     Description: Enter the name of your existing EKS Cluster
 
 Resources:
-  VPC_CNIAddon:
+  VPCCNIAddon: 
     Type: AWS::EKS::Addon
     Properties:
       AddonName: vpc-cni
       ClusterName: !Ref ClusterName
-      Version: "v1.21.1-eksbuild.1"
+      ResolveConflicts: OVERWRITE 
 
-  EBSAddon:
+  EBSCSIDriverAddon:
     Type: AWS::EKS::Addon
     Properties:
-      AddonName: aws ebs-csi-driver
+      AddonName: aws-ebs-csi-driver 
       ClusterName: !Ref ClusterName
-      Version: "V1.20.0-eksbuild-1"
 
   KubeProxyAddon:
     Type: AWS::EKS::Addon
     Properties:
       AddonName: kube-proxy
       ClusterName: !Ref ClusterName
-      Version: "v1.35.3-eksbuild.2"
 
   CoreDNSAddon:
     Type: AWS::EKS::Addon
     Properties:
       AddonName: coredns
       ClusterName: !Ref ClusterName
-      Version: "v1.13.2-eksbuild.4"
 
-  EKSPodIdentityAgentAddon:
+  EKSPodIdentityAddon:
     Type: AWS::EKS::Addon
     Properties:
-      AddonName: EKS Pod Identity Agent
+      AddonName: eks-pod-identity-agent 
       ClusterName: !Ref ClusterName
-      Version: "v1.3.10-eksbuild.3"
 
 Outputs:
-  AddonName:
+  VpcCniName:
     Description: Addons name 
-    Value: !Ref VPC_CNIAddon
-  
+    Value: !Ref VPCCNIAddon
