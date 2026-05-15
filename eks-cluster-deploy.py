@@ -50,7 +50,7 @@ def deploy_cluster(stack_name, region, subnet_ids, vpc_id, cluster_version, secu
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--stack-name', required=True)
+    parser.add_argument('--stack_name', required=True)
     parser.add_argument('--region', required=True)
     parser.add_argument('--subnet-ids', required=True)
     parser.add_argument('--vpc-id', required=True)

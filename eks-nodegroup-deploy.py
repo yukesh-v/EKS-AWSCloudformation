@@ -48,7 +48,7 @@ def deploy_nodegroup(stack_name, cluster_name, region, subnet_ids, instance_type
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--stack-name', required=True)
+    parser.add_argument('--stack_name', required=True)
     parser.add_argument('--cluster_name', required=True)
     parser.add_argument('--region', required=True)
     parser.add_argument('--subnet-ids', required=True)
