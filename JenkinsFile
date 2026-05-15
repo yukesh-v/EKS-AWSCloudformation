@@ -29,7 +29,7 @@ stages {
     stage('Deploy EKS Node Group') {
         steps{
             script{
-                sh 'python3 eks-nodegroup-deploy.py --stack-name ${STACK_NAME} --region ${REGION} --subnet-ids ${SUBNET_IDS} --instance-types ${INSTANCE_TYPES}'
+                sh 'python3 eks-nodegroup-deploy.py --stack-name ${STACK_NAME} --region ${REGION} --subnet-ids ${SUBNET_IDS} --instance_types ${INSTANCE_TYPES}'
             }
         }
     }
