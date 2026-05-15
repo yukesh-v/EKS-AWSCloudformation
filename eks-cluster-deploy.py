@@ -28,7 +28,6 @@ def deploy_cluster(stack_name, region, subnet_ids, vpc_id, cluster_version, secu
             Capabilities=['CAPABILITY_IAM', 'CAPABILITY_NAMED_IAM']
         )
         
-        print("Stack creation initiated. ID:", response['StackId'])
         
         while True:
             stack = cfn.describe_stacks(StackName=stack_name)['Stacks'][0]
@@ -41,7 +40,7 @@ def deploy_cluster(stack_name, region, subnet_ids, vpc_id, cluster_version, secu
                 print(f"\nDeployment Failed with status: {status}")
                 break
             else:
-                print(f"{stack_name} Cluster is being created...", end="\r")
+                print(f"{stack_name} Cluster is being created...", end="\r", flush=True)
                 sys.stdout.flush()
                 time.sleep(30)
 

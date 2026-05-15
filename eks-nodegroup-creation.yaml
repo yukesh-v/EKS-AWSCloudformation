@@ -7,11 +7,11 @@ Parameters:
     Description: Enter the name of your existing EKS Cluster
 
   SubnetIds:
-    Type: CommaDelimitedList
+    Type: String
     Description: Enter the subnet IDs 
     
   InstanceTypes:
-    Type: string
+    Type: String
     Description: Enter the instance types 
 
 Resources:

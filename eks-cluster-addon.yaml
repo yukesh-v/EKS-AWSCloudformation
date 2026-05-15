@@ -43,4 +43,7 @@ Resources:
       Version: "v1.3.10-eksbuild.3"
 
 Outputs:
+  AddonName:
+     Description: Addons name 
+     Value: !Ref VPC_CNIAddon
   

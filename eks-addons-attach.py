@@ -36,7 +36,7 @@ def attach_addons(stack_name, region, cluster_name):
                 print(f"\nAddons Failed with status: {status}")
                 break
             else:
-                print(f"{stack_name} Addons is being attaching to {cluster_name}...", end="\r")
+                print(f"{stack_name} Addons is being attaching to {cluster_name}...", end="\r", flush=True)
                 sys.stdout.flush()
                 time.sleep(30)
 

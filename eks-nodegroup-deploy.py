@@ -38,7 +38,7 @@ def deploy_nodegroup(stack_name, cluster_name, region, subnet_ids, instance_type
                 print(f"\nNodeGroup Failed with status: {status}")
                 break
             else:
-                print(f"{stack_name} NodeGroup is being created...", end="\r")
+                print(f"{stack_name} NodeGroup is being created...", end="\r", flush=True)
                 sys.stdout.flush()
                 time.sleep(30)
 
