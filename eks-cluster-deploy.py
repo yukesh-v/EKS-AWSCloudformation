@@ -47,7 +47,7 @@ if __name__ == "__main__":
     parser.add_argument('--subnet-ids', required=True)
     parser.add_argument('--vpc-id', required=True)
     parser.add_argument('--security-group', required=True)
-    parser.add_argument('--cluster-version', default="1.35")
+    parser.add_argument('--cluster_version', default="1.35")
 
     args = parser.parse_args()
     deploy_cluster(
