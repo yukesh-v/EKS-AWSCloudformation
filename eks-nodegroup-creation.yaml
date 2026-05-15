@@ -19,7 +19,7 @@ Resources:
   Type: AWS::EKS::Nodegroup
   Properties:
     ClusterName: !Ref ClusterName
-    NodegroupName: !sub '${ClusterName}-nodegroup'
+    NodegroupName: !Sub '${ClusterName}-nodegroup'
     NodeRole: arn:aws:iam::949829288387:role/EKS-WorkerNode-Role
     NodeGroup:
       ScalingConfig:
