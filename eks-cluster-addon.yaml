@@ -44,6 +44,6 @@ Resources:
 
 Outputs:
   AddonName:
-     Description: Addons name 
-     Value: !Ref VPC_CNIAddon
+    Description: Addons name 
+    Value: !Ref VPC_CNIAddon
   
