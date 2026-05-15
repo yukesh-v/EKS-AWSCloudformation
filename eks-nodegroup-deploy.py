@@ -1,6 +1,7 @@
 import boto3
 import time
 import argparse
+import sys
 
 def deploy_nodegroup(stack_name, cluster_name, region, subnet_ids, instance_types):
 

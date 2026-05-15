@@ -1,6 +1,7 @@
 import boto3
 import time
 import argparse
+import sys
 
 def attach_addons(stack_name, region, cluster_name):
 

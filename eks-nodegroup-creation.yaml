@@ -29,7 +29,7 @@ Resources:
         DiskSize: 20
         InstanceTypes:
           - !Ref InstanceTypes
-        subnetIds: !Split [",", !Ref SubnetIds]]
+        subnetIds: !Split [",", !Ref SubnetIds]
 
 Outputs:
   NodeGroupName:

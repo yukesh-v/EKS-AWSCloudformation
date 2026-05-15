@@ -1,6 +1,7 @@
 import boto3
 import time
 import argparse
+import sys
 
 def deploy_cluster(stack_name, region, subnet_ids, vpc_id, cluster_version, security_group):
 
