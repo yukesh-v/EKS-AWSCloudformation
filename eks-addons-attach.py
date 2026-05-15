@@ -7,7 +7,6 @@ def attach_addons(stack_name, region, cluster_name):
 
     cfn = boto3.client('cloudformation', region_name=region)
 
-    # Load your template
     with open('eks-cluster-addon.yaml', 'r') as f:
         template_body = f.read()
     
@@ -22,8 +21,6 @@ def attach_addons(stack_name, region, cluster_name):
             ],
             Capabilities=['CAPABILITY_IAM', 'CAPABILITY_NAMED_IAM']
         )
-        
-        print("Stack creation initiated. ID:", response['StackId'])
 
         while True:
             stack = cfn.describe_stacks(StackName=stack_name)['Stacks'][0]
