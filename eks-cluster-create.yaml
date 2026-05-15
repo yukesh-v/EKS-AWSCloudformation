@@ -30,8 +30,7 @@ Resources:
       Version: !Ref ClusterVersion
       RoleArn: arn:aws:iam::949829288387:role/AmazonEKSClusterRole
       ResourcesVpcConfig:
-        VpcId: !Ref VpcId
-        Subnets: !Split [",", !Ref SubnetIds]
+        SubnetIds: !Split [",", !Ref SubnetIds]
         SecurityGroupIds: 
           - !Ref SecurityGroup
           
