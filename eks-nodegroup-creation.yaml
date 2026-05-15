@@ -21,7 +21,7 @@ Resources:
       ClusterName: !Ref ClusterName
       NodegroupName: !Sub '${ClusterName}-nodegroup'
       NodeRole: "arn:aws:iam::949829288387:role/EKS-WorkerNode-Role"
-      SubnetIds: !Split [",", !Ref SubnetIds]
+      Subnets: !Split [",", !Ref SubnetIds]
       InstanceTypes:
         - !Ref InstanceTypes
       DiskSize: 20
