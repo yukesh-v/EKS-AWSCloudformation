@@ -21,21 +21,21 @@ stages {
     stage('Deploy EKS Cluster') {
         steps {
             script{
-                sh 'python3 eks-cluster-creation.py --action cluster --stack_name ${CLUSTER_NAME} --region ${REGION} --subnet-ids ${SUBNET_IDS} --security-group ${SECURITY_GROUP} --cluster-version ${CLUSTER_VERSION} --instance_types ${INSTANCE_TYPES} --cluster_name ${CLUSTER_NAME}'
+                sh 'python3 eks-cluster-creation.py --action cluster --stack_name ${CLUSTER_NAME} --region ${REGION} --subnet-ids ${SUBNET_IDS} --security-group ${SECURITY_GROUP} --cluster_version ${CLUSTER_VERSION} --instance_types ${INSTANCE_TYPES} --cluster_name ${CLUSTER_NAME}'
             }
         }
     }
     stage('Deploy EKS Node Group') {
         steps{
             script{
-                sh 'python3 eks-cluster-creation.py --action nodes --stack_name ${CLUSTER_NAME} --region ${REGION} --subnet-ids ${SUBNET_IDS} --instance_types ${INSTANCE_TYPES} --cluster_name ${CLUSTER_NAME}'
+                sh 'python3 eks-cluster-creation.py --action nodes --stack_name ${CLUSTER_NAME} --region ${REGION} --subnet-ids ${SUBNET_IDS} --security-group ${SECURITY_GROUP} --cluster_version ${CLUSTER_VERSION} --instance_types ${INSTANCE_TYPES} --cluster_name ${CLUSTER_NAME}'
             }
         }
     }
     stage('Attach EKS Addons') {
         steps{
             script{
-                sh 'python3 eks-cluster-creation.py --action addons --stack_name ${CLUSTER_NAME} --region ${REGION} --cluster_name ${CLUSTER_NAME}'
+                sh 'python3 eks-cluster-creation.py --action addons --stack_name ${CLUSTER_NAME} --region ${REGION} --subnet-ids ${SUBNET_IDS} --security-group ${SECURITY_GROUP} --cluster_version ${CLUSTER_VERSION} --instance_types ${INSTANCE_TYPES} --cluster_name ${CLUSTER_NAME}'
             }
         }
     }
