@@ -4,11 +4,6 @@ import argparse
 
 def attach_addons(stack_name, region,):
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--stack-name', required=True)
-    parser.add_argument('--region', required=True)
-
-
     cfn = boto3.client('cloudformation', region_name=region)
 
     # Load your template
@@ -40,6 +35,10 @@ def attach_addons(stack_name, region,):
         print(f"Error: {str(e)}")
 
 if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--stack-name', required=True)
+    parser.add_argument('--region', required=True)
 
     args = parser.parse_args()
     attach_addons(

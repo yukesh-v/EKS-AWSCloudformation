@@ -4,12 +4,6 @@ import argparse
 
 def deploy_nodegroup(stack_name, region, subnet_ids, instance_types):
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--stack-name', required=True)
-    parser.add_argument('--region', required=True)
-    parser.add_argument('--subnet-ids', required=True)
-    parser.add_argument('--instance_types', required=True)
-
     cfn = boto3.client('cloudformation', region_name=region)
 
     # Load your template
@@ -43,6 +37,12 @@ def deploy_nodegroup(stack_name, region, subnet_ids, instance_types):
         print(f"Error: {str(e)}")
 
 if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--stack-name', required=True)
+    parser.add_argument('--region', required=True)
+    parser.add_argument('--subnet-ids', required=True)
+    parser.add_argument('--instance_types', required=True)
 
     args = parser.parse_args()
     deploy_nodegroup(

@@ -3,14 +3,6 @@ import time
 import argparse
 
 def deploy_cluster(stack_name, region, subnet_ids, vpc_id, cluster_version, security_group):
-    
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--stack-name', required=True)
-    parser.add_argument('--region', required=True)
-    parser.add_argument('--subnet-ids', required=True)
-    parser.add_argument('--vpc-id', required=True)
-    parser.add_argument('--security-group', required=True)
-    parser.add_argument('--cluster-version', default="1.35")
 
     cfn = boto3.client('cloudformation', region_name=region)
     # Load your template
@@ -48,6 +40,14 @@ def deploy_cluster(stack_name, region, subnet_ids, vpc_id, cluster_version, secu
 
 
 if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--stack-name', required=True)
+    parser.add_argument('--region', required=True)
+    parser.add_argument('--subnet-ids', required=True)
+    parser.add_argument('--vpc-id', required=True)
+    parser.add_argument('--security-group', required=True)
+    parser.add_argument('--cluster-version', default="1.35")
 
     args = parser.parse_args()
     deploy_cluster(
