@@ -16,19 +16,19 @@ Parameters:
 
 Resources:
   EKSNodeGroup:
-  Type: AWS::EKS::Nodegroup
-  Properties:
-    ClusterName: !Ref ClusterName
-    NodegroupName: !Sub '${ClusterName}-nodegroup'
-    NodeRole: arn:aws:iam::949829288387:role/EKS-WorkerNode-Role
-    SubnetIds: !Split [",", !Ref SubnetIds]
-    InstanceTypes:
-      - !Ref InstanceTypes
-    DiskSize: 20
-    ScalingConfig:
-      DesiredSize: 1
-      MaxSize: 3
-      MinSize: 1
+    Type: AWS::EKS::Nodegroup
+    Properties:
+      ClusterName: !Ref ClusterName
+      NodegroupName: !Sub '${ClusterName}-nodegroup'
+      NodeRole: "arn:aws:iam::949829288387:role/EKS-WorkerNode-Role"
+      SubnetIds: !Split [",", !Ref SubnetIds]
+      InstanceTypes:
+        - !Ref InstanceTypes
+      DiskSize: 20
+      ScalingConfig:
+        DesiredSize: 1
+        MaxSize: 3
+        MinSize: 1
 
 Outputs:
   NodeGroupName:
