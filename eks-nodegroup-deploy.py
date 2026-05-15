@@ -10,7 +10,7 @@ def deploy_nodegroup(stack_name, cluster_name, region, subnet_ids, instance_type
     with open('eks-nodegroup-creation.yaml', 'r') as f:
         template_body = f.read()
     
-    stack_name = f"${stack_name}-nodegroup"
+    stack_name = f"{stack_name}-nodegroup"
 
     print(f"Starting deployment for node group {stack_name}...")
 
@@ -25,8 +25,6 @@ def deploy_nodegroup(stack_name, cluster_name, region, subnet_ids, instance_type
             ],
             Capabilities=['CAPABILITY_IAM', 'CAPABILITY_NAMED_IAM']
         )
-        
-        print("Stack creation initiated. ID:", response['StackId'])
 
         while True:
             stack = cfn.describe_stacks(StackName=stack_name)['Stacks'][0]
@@ -39,7 +37,8 @@ def deploy_nodegroup(stack_name, cluster_name, region, subnet_ids, instance_type
                 print(f"\nNodeGroup Failed with status: {status}")
                 break
             else:
-                print("NodeGroup is being created...", end="\r", flush=True)
+                print(f"{stack_name} NodeGroup is being created...", end="\r")
+                sys.stdout.flush()
                 time.sleep(30)
 
     except Exception as e:

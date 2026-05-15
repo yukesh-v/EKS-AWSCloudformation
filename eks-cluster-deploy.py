@@ -40,7 +40,8 @@ def deploy_cluster(stack_name, region, subnet_ids, vpc_id, cluster_version, secu
                 print(f"\nDeployment Failed with status: {status}")
                 break
             else:
-                print("Cluster is being created...", end="\r", flush=True)
+                print(f"{stack_name} Cluster is being created...", end="\r")
+                sys.stdout.flush()
                 time.sleep(30)
 
     except Exception as e:
