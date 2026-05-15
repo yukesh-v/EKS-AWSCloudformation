@@ -49,7 +49,7 @@ def deploy_cluster(stack_name, region, subnet_ids, vpc_id, cluster_version, secu
 
 if __name__ == "__main__":
 
-args = parser.parse_args()
+    args = parser.parse_args()
     deploy_cluster(
         stack_name=args.stack_name,
         region=args.region,
