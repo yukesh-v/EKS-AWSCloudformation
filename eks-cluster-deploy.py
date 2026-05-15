@@ -1,9 +1,18 @@
 import boto3
 import time
+import argparse
 
 def deploy_cluster(stack_name, region, subnet_ids, vpc_id, cluster_version, security_group):
-    cfn = boto3.client('cloudformation', region_name=region)
+    
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--stack-name', required=True)
+    parser.add_argument('--region', required=True)
+    parser.add_argument('--subnet-ids', required=True)
+    parser.add_argument('--vpc-id', required=True)
+    parser.add_argument('--security-group', required=True)
+    parser.add_argument('--cluster-version', default="1.35")
 
+    cfn = boto3.client('cloudformation', region_name=region)
     # Load your template
     with open('eks-cluster-create.yaml', 'r') as f:
         template_body = f.read()
@@ -37,5 +46,15 @@ def deploy_cluster(stack_name, region, subnet_ids, vpc_id, cluster_version, secu
     except Exception as e:
         print(f"Error: {str(e)}")
 
+
 if __name__ == "__main__":
-    deploy_cluster()
+
+args = parser.parse_args()
+    deploy_cluster(
+        stack_name=args.stack_name,
+        region=args.region,
+        subnet_ids=args.subnet_ids,
+        vpc_id=args.vpc_id,
+        cluster_version=args.cluster_version,
+        security_group=args.security_group
+    )
