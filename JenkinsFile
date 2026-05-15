@@ -7,6 +7,7 @@ parameter {
     string(name: 'REGION', defaultValue: 'ap-south-1', description: 'AWS region to deploy the stack')
     string(name: 'VPC_ID',  description: 'VPC ID where the EKS cluster is deployed')
     string(name: 'SUBNET_IDS', defaultValue: 'subnet-0b6d911bc173f3c89,subnet-0b3f113e6e4206a30', description: 'Comma-separated list of subnet IDs for the node group')
+    string(name: 'SECURITY_GROUP', description: 'Security Group ID for the EKS cluster')
     string(name: 'INSTANCE_TYPES', defaultValue: 'c6a.large', description: 'Instance types for the node group')
 
 }
@@ -20,7 +21,7 @@ stages {
     stage('Deploy EKS Cluster') {
         steps {
             scripts{
-                sh 'python eks-cluster-deploy.py --stack-name ${STACK_NAME} --region ${REGION} --subnet-ids ${SUBNET_IDS} --vpc-id ${VPC_ID}'
+                sh 'python eks-cluster-deploy.py --stack-name ${STACK_NAME} --region ${REGION} --subnet-ids ${SUBNET_IDS} --vpc-id ${VPC_ID} --security-group ${SECURITY_GROUP}'
             }
         }
     }
