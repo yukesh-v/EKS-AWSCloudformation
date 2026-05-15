@@ -20,21 +20,21 @@ stages {
     }
     stage('Deploy EKS Cluster') {
         steps {
-            scripts{
+            script{
                 sh 'python eks-cluster-deploy.py --stack-name ${STACK_NAME} --region ${REGION} --subnet-ids ${SUBNET_IDS} --vpc-id ${VPC_ID} --security-group ${SECURITY_GROUP}'
             }
         }
     }
     stage('Deploy EKS Node Group') {
         steps{
-            scripts{
+            script{
                 sh 'python eks-nodegroup-deploy.py --stack-name ${STACK_NAME} --region ${REGION} --subnet-ids ${SUBNET_IDS} --instance-types ${INSTANCE_TYPES}'
             }
         }
     }
     stage('Attach EKS Addons') {
         steps{
-            scripts{
+            script{
                 sh 'python eks-addons-attach.py --stack-name ${STACK_NAME} --region ${REGION}'
             }
         }
