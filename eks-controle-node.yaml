@@ -1,0 +1,39 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+    EKS Cluster creation, Node group creation and Addons deployment in a single template. This template will create an EKS cluster, a node group and attach the required addons to the cluster.
+Parameters:
+   ClusterName:
+    Type: String
+    Description: Enter the name of your existing EKS Cluster
+
+   SubnetIds:
+     Type: CommaDelimitedList
+     Description: Enter the Subnet IDs (comma separated)
+ 
+   SecurityGroup:
+     Type: String
+     Description: Enter the Security Group ID
+   
+   ClusterVersion:
+     Type: String
+     Description: Enter the EKS Cluster version 
+
+Resources:
+  EKSCluster:
+    Type: AWS::EKS::Cluster
+    Properties:
+      Name: !Ref ClusterName
+      Version: !Ref ClusterVersion
+      RoleArn: arn:aws:iam::949829288387:role/AmazonEKSClusterRole
+      ResourcesVpcConfig:
+        SubnetIds: !Split [",", !Ref SubnetIds]
+        SecurityGroupIds: 
+          - !Ref SecurityGroup
+
+Outputs:
+  ClusterName:
+    Description: The name of the EKS cluster
+    Value: !Ref EKSCluster
+
+
+  
