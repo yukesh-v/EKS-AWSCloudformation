@@ -21,7 +21,7 @@ stages {
     stage('Deploy EKS Cluster') {
         steps {
             script{
-                sh 'python3 eks-cluster-creation.py --action cluster --stack-name ${CLUSTER_NAME} --region ${REGION} --subnet-ids ${SUBNET_IDS} --security-group ${SECURITY_GROUP} --cluster-version ${CLUSTER_VERSION}'
+                sh 'python3 eks-cluster-creation.py --action cluster --stack-name ${CLUSTER_NAME} --region ${REGION} --subnet-ids ${SUBNET_IDS} --security-group ${SECURITY_GROUP} --cluster-version ${CLUSTER_VERSION} --instance-types ${INSTANCE_TYPES} --cluster-name ${CLUSTER_NAME}'
             }
         }
     }
