@@ -11,7 +11,7 @@ Parameters:
     Description: Enter the VPC ID
 
   SubnetIds:
-    Type: CommaDelimitedList
+    Type: String
     Description: Enter the Subnet IDs (comma separated)
 
   SecurityGroup:
@@ -29,11 +29,9 @@ Resources:
       Name: !Ref ClusterName
       Version: !Ref ClusterVersion
       RoleArn: arn:aws:iam::949829288387:role/AmazonEKSClusterRole
-      ResourceVpcConfig:
+      ResourcesVpcConfig:
         VpcId: !Ref VpcId
-        Subnets:
-          - !Select [0, !Ref SubnetIds]
-          - !Select [1, !Ref SubnetIds]
+        Subnets: !Split [",", !Ref SubnetIds]
         SecurityGroupIds: 
           - !Ref SecurityGroup
           
