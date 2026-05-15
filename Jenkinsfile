@@ -2,7 +2,7 @@ pipeline {
    
    agent any
 
-parameter {
+parameters {
     string(name: 'CLUSTER_NAME', description: 'Name of the CloudFormation stack to create')
     string(name: 'REGION', defaultValue: 'ap-south-1', description: 'AWS region to deploy the stack')
     string(name: 'CLUSTER_VERSION', defaultValue: '1.35', description: 'Enter The Cluster Version')
