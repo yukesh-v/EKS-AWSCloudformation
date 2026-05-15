@@ -2,7 +2,7 @@ pipeline {
    
    agent any
 
-parameter {
+parameters {
     string(name: 'STACK_NAME', description: 'Name of the CloudFormation stack to create')
     string(name: 'REGION', defaultValue: 'ap-south-1', description: 'AWS region to deploy the stack')
     string(name: 'VPC_ID',  description: 'VPC ID where the EKS cluster is deployed')
