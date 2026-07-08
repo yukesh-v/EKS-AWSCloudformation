@@ -29,7 +29,9 @@ Resources:
         DesiredSize: 1
         MaxSize: 3
         MinSize: 1
-
+      Tags: 
+        Name: !Sub '${ClusterName}-worker-node'
+        Role: 'Worker-Node'
 Outputs:
   NodeGroupName:
     Description: The name of the EKS node group
